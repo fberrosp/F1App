@@ -1,0 +1,51 @@
+/* Set the default font for the entire website */
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+/* Set the main color scheme for the website */
+:root {
+  --primary-color: #002366;
+  --secondary-color: #fdb515;
+  --tertiary-color: #ffffff;
+  --quaternary-color: #000000;
+  --quinary-color: #bdbdbd;
+  
+  /* Customize the Bootstrap variables to match the theme colors */
+  --primary: var(--primary-color);
+  --secondary: var(--secondary-color);
+  --success: var(--secondary-color);
+  --info: var(--primary-color);
+  --warning: var(--secondary-color);
+  --danger: var(--primary-color);
+  --light: var(--tertiary-color);
+  --dark: var(--quaternary-color);
+}
+
+/* Use the primary color for headings and links */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+}
+a {
+  color: var(--primary-color);
+}
+
+/* Use the secondary color for buttons and accents */
+button, .button {
+  background-color: var(--secondary-color);
+  color: var(--tertiary-color);
+}
+.secondary-color {
+  color: var(--secondary-color);
+}
+
+/* Use the tertiary color for text and backgrounds */
+body {
+  color: var(--tertiary-color);
+}
+.tertiary-color {
+  color: var(--tertiary-color);
+}
+.tertiary-bg {
+  background-color: var(--tertiary-color);
+}
