@@ -4,4 +4,33 @@
 
 <h1>Drivers</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">driverId</th>
+            <th scope="col">number</th>
+            <th scope="col">code</th>
+            <th scope="col">forename</th>
+            <th scope="col">surname</th>
+            <th scope="col">dob</th>
+            <th scope="col">nationality</th>
+            <th scope="col">url</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for driver in drivers %}
+        <tr>
+            <th scope="row">{{ driver.driverId }}</th>
+            <td>{{ driver.permanentNumber }}</td>
+            <td>{{ driver.code }}</td>
+            <td>{{ driver.givenName }}</td>
+            <td>{{ driver.familyName }}</td>
+            <td>{{ driver.dateOfBirth }}</td>
+            <td>{{ driver.nationality }}</td>
+            <td>{{ driver.url }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
