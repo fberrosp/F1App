@@ -98,6 +98,7 @@ class DriverStandings(models.Model):
 
 
 class ConstructorStandings(models.Model):
+    constructorStandingsId = AutoField(primary_key=True)
     season = IntegerField()
     race_round = IntegerField()
     constructorId = ForeignKey(Constructors, on_delete=models.CASCADE)
