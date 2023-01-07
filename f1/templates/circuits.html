@@ -4,4 +4,31 @@
 
 <h1>Circuits</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">circuitId</th>
+            <th scope="col">circuitName</th>
+            <th scope="col">lat</th>
+            <th scope="col">long</th>
+            <th scope="col">locality</th>
+            <th scope="col">country</th>
+            <th scope="col">url</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for circuit in circuits %}
+        <tr>
+            <th scope="row">{{ circuit.circuitId }}</th>
+            <td>{{ circuit.circuitName }}</td>
+            <td>{{ circuit.Location.lat }}</td>
+            <td>{{ circuit.Location.long }}</td>
+            <td>{{ circuit.Location.locality }}</td>
+            <td>{{ circuit.Location.country }}</td>
+            <td>{{ circuit.url }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

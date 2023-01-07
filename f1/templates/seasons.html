@@ -4,4 +4,21 @@
 
 <h1>Seasons</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">season</th>
+            <th scope="col">url</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for season in seasons %}
+        <tr>
+            <th scope="row">{{ season.season }}</th>
+            <td>{{ season.url }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}

@@ -4,4 +4,25 @@
 
 <h1>Constructors</h1>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">constructorId</th>
+            <th scope="col">name</th>
+            <th scope="col">nationality</th>
+            <th scope="col">url</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for constructor in constructors %}
+        <tr>
+            <th scope="row">{{ constructor.constructorId }}</th>
+            <td>{{ constructor.name }}</td>
+            <td>{{ constructor.nationality }}</td>
+            <td>{{ constructor.url }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
 {% endblock %}
