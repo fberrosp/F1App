@@ -1,18 +1,14 @@
 import os
 import requests
-import pandas as pd
 import time
 import json
 
-from bs4 import BeautifulSoup
 from .models import Drivers, Qualifyings
 from datetime import date
 from collections import OrderedDict
-from sqlalchemy import create_engine
 
 
 # method to get F1 API data from Ergast API
-
 def get_api_data(api_endpoint):
     url = 'https://ergast.com/api/f1/{}.json?limit=10000'.format(api_endpoint)
     response = requests.get(url).json()
@@ -138,65 +134,8 @@ def get_constructor_standings(request, round):
         '/' + str(round) + '/' + 'constructorStandings'
     constructorStandings = get_api_data(roundConstructorStandings)[
         'StandingsTable']['StandingsLists']
-    print(constructorStandings)
     return constructorStandings
 
 
 def update_database():
     pass
-
-
-def get_qualifying():
-    all_qualifying = Qualifyings.objects.all().order_by('season')
-
-    if all_qualifying:
-        return all_qualifying
-    else:
-        qualifying_df = pd.DataFrame()
-
-        for year in list(range(1983, 2023)):
-            url = 'https://www.formula1.com/en/results.html/{}/races.html'
-            response = requests.get(url.format(year))
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            yearLinks = []
-            for page in soup.find_all('a', attrs={'class': "resultsarchive-filter-item-link FilterTrigger"}):
-                pageLinks = page.get('href')
-                if f'/en/results.html/{year}/races/' in pageLinks:
-                    yearLinks.append(pageLinks)
-
-            newUrl = 'https://www.formula1.com{}'
-            yearQualifying_df = pd.DataFrame()
-
-            for round, link in list(enumerate(yearLinks)):
-                link = link.replace('race-result.html', 'starting-grid.html')
-
-                raceResponse = requests.get(newUrl.format(link))
-                df = pd.read_html(raceResponse.text)
-                df = df[0]
-                df['season'] = year
-                df['round'] = round + 1
-
-                driverName = df['Driver'].str.split()
-                df['code'] = driverName.str[-1]
-                df['forename'] = driverName.str[0]
-                df['surname'] = driverName.str[1:-1]
-                df['surname'] = [' '.join(map(str, l)) for l in df['surname']]
-
-                df.drop(list(df.filter(regex='Unnamed')), axis=1, inplace=True)
-                df.drop(['Driver'], axis=1, inplace=True)
-
-                yearQualifying_df = pd.concat([yearQualifying_df, df])
-
-            qualifying_df = pd.concat([qualifying_df, yearQualifying_df])
-
-        qualifying_df.rename(columns={'Pos': 'grid', 'Car': 'car', 'Time': 'qualifyingTime',
-                                      'No': 'number', 'round': 'race_round'}, inplace=True)
-
-        engine = create_engine('sqlite:///db.sqlite3')
-        qualifying_df.to_sql(Qualifyings._meta.db_table,
-                             if_exists='replace', con=engine, index=True, index_label='qualifyId')
-
-        all_qualifying = Qualifyings.objects.all().order_by('season')
-
-        return all_qualifying
