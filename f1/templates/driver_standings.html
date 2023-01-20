@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ driverStandings.0.season }} Season: Round {{driverStandings.0.round}} Driver Standings</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Constructor</th>
+            <th scope="col">Points</th>
+            <th scope="col">Wins</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for driverStanding in driverStandings.0.DriverStandings %}
+        <tr>
+            <th scope="row">{{ driverStanding.position }}</th>
+            <td>{{ driverStanding.Driver.givenName }} {{ driverStanding.Driver.familyName }}</td>
+            <td>{{ driverStanding.Constructors.0.name }}</td>
+            <td>{{ driverStanding.points }}</td>
+            <td>{{ driverStanding.wins }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

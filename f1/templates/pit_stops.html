@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ pitStops.0.season }} Season: {{pitStops.0.raceName}} Pit Stops</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">driverId</th>
+            <th scope="col">Stop</th>
+            <th scope="col">Lap</th>
+            <th scope="col">Time</th>
+            <th scope="col">Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pitStop in pitStops.0.PitStops %}
+        <tr>
+            <th scope="row">{{ pitStop.driverId }}</th>
+            <td>{{ pitStop.stop }}</td>
+            <td>{{ pitStop.lap }}</td>
+            <td>{{ pitStop.time }}</td>
+            <td>{{ pitStop.duration }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ qualifyings.0.season }} Season: {{qualifyings.0.raceName}} Qualifyings</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Number</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Constructor</th>
+            <th scope="col">Q1</th>
+            <th scope="col">Q2</th>
+            <th scope="col">Q3</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for qualifying in qualifyings.0.QualifyingResults %}
+        <tr>
+            <th scope="row">{{ qualifying.position }}</th>
+            <td>{{ qualifying.number }}</td>
+            <td>{{ qualifying.Driver.givenName }} {{ qualifying.Driver.familyName }}</td>
+            <td>{{ qualifying.Constructor.name }}</td>
+            <td>{{ qualifying.Q1 }}</td>
+            <td>{{ qualifying.Q2 }}</td>
+            <td>{{ qualifying.Q3 }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

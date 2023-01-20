@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ constructorStandings.0.season }} Season: Round {{constructorStandings.0.round}} Constructor Standings</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Constructor</th>
+            <th scope="col">Nationality</th>
+            <th scope="col">Points</th>
+            <th scope="col">Wins</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for constructorStanding in constructorStandings.0.ConstructorStandings %}
+        <tr>
+            <th scope="row">{{ constructorStanding.position }}</th>
+            <td>{{ constructorStanding.Constructor.name }}</td>
+            <td>{{ constructorStanding.Constructor.nationality }}</td>
+            <td>{{ constructorStanding.points }}</td>
+            <td>{{ constructorStanding.wins }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

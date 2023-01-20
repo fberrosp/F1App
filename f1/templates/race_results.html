@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ raceResults.0.season }} Season: {{raceResults.0.raceName}} Race Results</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Position</th>
+            <th scope="col">Number</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Constructor</th>
+            <th scope="col">Laps</th>
+            <th scope="col">Grid</th>
+            <th scope="col">Time</th>
+            <th scope="col">Status</th>
+            <th scope="col">Points</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for raceResult in raceResults.0.Results %}
+        <tr>
+            <th scope="row">{{ raceResult.position }}</th>
+            <td>{{ raceResult.number }}</td>
+            <td>{{ raceResult.Driver.givenName }} {{ raceResult.Driver.familyName }}</td>
+            <td>{{ raceResult.Constructor.name }}</td>
+            <td>{{ raceResult.laps }}</td>
+            <td>{{ raceResult.grid }}</td>
+            <td>{{ raceResult.Time.time }}</td>
+            <td>{{ raceResult.status }}</td>
+            <td>{{ raceResult.points }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

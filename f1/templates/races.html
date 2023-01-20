@@ -1,0 +1,44 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Races</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">round</th>
+            <th scope="col">raceName</th>
+            <th scope="col">date</th>
+            <th scope="col">circuitName</th>
+            <th scope="col">country</th>
+            <th scope="col">Qualifyings</th>
+            <th scope="col">Race Results</th>
+            <th scope="col">Pit Stops</th>
+            <th scope="col">Lap Times</th>
+            <th scope="col">Driver Standings</th>
+            <th scope="col">Constructor Standings</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for race in races %}
+        <tr>
+            <th scope="row">{{ race.round }}</th>
+            <td>{{ race.raceName }}</td>
+            <td>{{ race.date }}</td>
+            <td>{{ race.Circuit.circuitName }}</td>
+            <td>{{ race.Circuit.Location.country }}</td>
+            <td><a href="{% url 'f1:qualifyings' race.round %}">Round {{ race.round }} Qualifying Results</a></td>
+            <td><a href="{% url 'f1:race_results' race.round %}">Round {{ race.round }} Race Results</a></td>
+            <td><a href="{% url 'f1:pit_stops' race.round %}">Round {{ race.round }} Pit Stops</a></td>
+            <td><a href="{% url 'f1:lap_times' race.round %}">Round {{ race.round }} Lap Times</a></td>
+            <td><a href="{% url 'f1:driver_standings' race.round %}">Round {{ race.round }} Driver Standings</a></td>
+            <td><a href="{% url 'f1:constructor_standings' race.round %}">Round {{ race.round }} Constructor
+                    Standings</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+{% endblock %}
