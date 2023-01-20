@@ -8,11 +8,11 @@
     <thead>
         <tr>
             <th scope="col">driverId</th>
-            <th scope="col">number</th>
+            <th scope="col">permanentNumber</th>
             <th scope="col">code</th>
-            <th scope="col">forename</th>
-            <th scope="col">surname</th>
-            <th scope="col">dob</th>
+            <th scope="col">givenName</th>
+            <th scope="col">familyName</th>
+            <th scope="col">dateOfBirth</th>
             <th scope="col">nationality</th>
             <th scope="col">url</th>
         </tr>
@@ -21,11 +21,11 @@
         {% for driver in drivers %}
         <tr>
             <th scope="row">{{ driver.driverId }}</th>
-            <td>{{ driver.number }}</td>
+            <td>{{ driver.permanentNumber }}</td>
             <td>{{ driver.code }}</td>
-            <td>{{ driver.forename }}</td>
-            <td>{{ driver.surname }}</td>
-            <td>{{ driver.dob }}</td>
+            <td>{{ driver.givenName }}</td>
+            <td>{{ driver.familyName }}</td>
+            <td>{{ driver.dateOfBirth }}</td>
             <td>{{ driver.nationality }}</td>
             <td>{{ driver.url }}</td>
         </tr>

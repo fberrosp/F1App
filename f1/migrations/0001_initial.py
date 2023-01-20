@@ -16,13 +16,127 @@ class Migration(migrations.Migration):
             fields=[
                 ('driverId', models.CharField(editable=False,
                  max_length=255, primary_key=True, serialize=False)),
-                ('number', models.IntegerField(blank=True, null=True)),
+                ('permanentNumber', models.IntegerField(blank=True, null=True)),
                 ('code', models.CharField(blank=True, null=True, max_length=3)),
-                ('forename', models.CharField(max_length=255)),
-                ('surname', models.CharField(max_length=255)),
-                ('dob', models.DateField()),
+                ('givenName', models.CharField(max_length=255)),
+                ('familyName', models.CharField(max_length=255)),
+                ('dateOfBirth', models.DateField()),
                 ('nationality', models.CharField(max_length=255)),
                 ('url', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Constructors',
+            fields=[
+                ('constructorId', models.CharField(editable=False,
+                 max_length=255, primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=255)),
+                ('nationality', models.CharField(max_length=255)),
+                ('url', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Circuits',
+            fields=[
+                ('circuitId', models.CharField(editable=False,
+                 max_length=255, primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=255)),
+                ('location', models.CharField(max_length=255)),
+                ('country', models.CharField(max_length=255)),
+                ('lat', models.FloatField()),
+                ('lng', models.FloatField()),
+                ('url', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Seasons',
+            fields=[
+                ('year', models.IntegerField(
+                    editable=False, primary_key=True, serialize=False)),
+                ('url', models.CharField(max_length=255)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Races',
+            fields=[
+                ('raceId', models.AutoField(primary_key=True, serialize=False)),
+                ('round', models.IntegerField()),
+                ('raceName', models.CharField(max_length=255)),
+                ('circuitName', models.CharField(max_length=255)),
+                ('date', models.DateField()),
+                ('country', models.CharField(max_length=255)),
+                ('lat', models.FloatField()),
+                ('lng', models.FloatField()),
+                ('url', models.CharField(max_length=255)),
+                ('circuitId', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.circuits')),
+                ('season', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.seasons')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Qualifyings',
+            fields=[
+                ('qualifyId', models.AutoField(primary_key=True, serialize=False)),
+                ('season', models.IntegerField()),
+                ('round', models.IntegerField()),
+                ('forename', models.CharField(max_length=255)),
+                ('surname', models.CharField(max_length=255)),
+                ('code', models.CharField(max_length=255)),
+                ('number', models.IntegerField()),
+                ('qualifyingTime', models.TimeField()),
+                ('grid', models.IntegerField()),
+                ('car', models.CharField(max_length=255)),
+            ],
+        ),
+
+        migrations.CreateModel(
+            name='Results',
+            fields=[
+                ('resultId', models.AutoField(primary_key=True, serialize=False)),
+                ('season', models.IntegerField()),
+                ('round', models.IntegerField()),
+                ('circuitId', models.CharField(max_length=255)),
+                ('dob', models.DateField()),
+                ('nationality', models.CharField(max_length=255)),
+                ('grid', models.IntegerField()),
+                ('time', models.IntegerField()),
+                ('status', models.CharField(max_length=255)),
+                ('points', models.FloatField()),
+                ('position', models.IntegerField()),
+                ('constructorId', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.constructors')),
+                ('driverId', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.drivers')),
+            ],
+        ),
+
+        migrations.CreateModel(
+            name='DriverStandings',
+            fields=[
+                ('driverStandingsId', models.AutoField(
+                    primary_key=True, serialize=False)),
+                ('season', models.IntegerField()),
+                ('round', models.IntegerField()),
+                ('points', models.FloatField()),
+                ('wins', models.IntegerField()),
+                ('position', models.IntegerField()),
+                ('driverId', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.drivers')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ConstructorStandings',
+            fields=[
+                ('constructorStandingsId', models.AutoField(
+                    primary_key=True, serialize=False)),
+                ('season', models.IntegerField()),
+                ('round', models.IntegerField()),
+                ('points', models.FloatField()),
+                ('wins', models.IntegerField()),
+                ('position', models.IntegerField()),
+                ('constructorId', models.ForeignKey(
+                    on_delete=models.deletion.CASCADE, to='f1.constructors')),
             ],
         ),
     ]
