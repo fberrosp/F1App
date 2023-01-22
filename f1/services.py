@@ -19,55 +19,61 @@ def get_api_data(api_endpoint):
 '''
 try:
     get data from cache
+
 except: data does not exist or data needs to be updated:
-    try:
+    if (data is up to date):
         get data from database unless its expired
         
-        update cache
-        
-    except: not (is up to date)
+    else: (not up to date)
         get data from api
 
         update database
         
-        update cache
+    update cache
 '''
 
 
 def get_drivers(request):
 
-    seasonDrivers = str(request.session['season'] - 1) + '/' + 'drivers'
+    if False:  # data up to date
 
-    drivers = get_api_data(seasonDrivers)['DriverTable']['Drivers']
+        # get data from database
+        pass
 
-    '''
-    for driver in drivers:
+    else:  # data not up to date
 
-        try:
-            driverNumber = driver['permanentNumber']
-        except:
-            driverNumber = None
+        # get data from api
+        seasonDrivers = str(request.session['season'] - 1) + '/' + 'drivers'
+        drivers = get_api_data(seasonDrivers)['DriverTable']['Drivers']
 
-        try:
-            driverCode = driver['code']
-        except:
-            driverCode = None
+        # update database
+        for driver in drivers:
 
-        driver_data = Drivers(
-            driverId=driver['driverId'],
-            number=driverNumber,
-            code=driverCode,
-            forename=driver['givenName'],
-            surname=driver['familyName'],
-            dob=driver['dateOfBirth'],
-            nationality=driver['nationality'],
-            url=driver['url']
-        )
+            try:
+                driverNumber = driver['permanentNumber']
+            except:
+                driverNumber = None
 
-        driver_data.save()
+            try:
+                driverCode = driver['code']
+            except:
+                driverCode = None
 
-    all_drivers = Drivers.objects.all().order_by('driverId')
-    '''
+            driver_data = Drivers(
+                driverId=driver['driverId'],
+                permanentNumber=driverNumber,
+                code=driverCode,
+                givenName=driver['givenName'],
+                familyName=driver['familyName'],
+                dateOfBirth=driver['dateOfBirth'],
+                nationality=driver['nationality'],
+                url=driver['url']
+            )
+
+            driver_data.save()
+
+    # update cache
+    # print(type(drivers))
 
     return drivers
 
@@ -135,7 +141,3 @@ def get_constructor_standings(request, round):
     constructorStandings = get_api_data(roundConstructorStandings)[
         'StandingsTable']['StandingsLists']
     return constructorStandings
-
-
-def update_database():
-    pass
