@@ -16,7 +16,9 @@
                         </a>
                         <ul class="dropdown-menu">
                             {% for season in seasons %}
-                            <li><a class="dropdown-item" href="#">{{ season.season }}</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{% url 'f1:index' %}?selected_season={{ season.season }}">
+                                    {{ season.season }}</a></li>
                             {% endfor %}
                         </ul>
 
